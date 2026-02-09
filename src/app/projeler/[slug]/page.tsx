@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getProjectBySlug, getProjects, urlFor } from '@/lib/sanity';
+import type { SanityImage } from '@/types';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -112,7 +113,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               <div>
                 <h2 className="text-2xl font-bold text-slate-800 mb-6">Proje Galerisi</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {project.gallery.map((image: { _key?: string; alt?: string }, index: number) => (
+                  {project.gallery.map((image: SanityImage & { _key?: string }, index: number) => (
                     <div
                       key={image._key || index}
                       className="relative aspect-square rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300"

@@ -228,7 +228,7 @@ export default async function HomePage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {recentProjects.map((project) => (
+              {recentProjects.map((project: Project) => (
                 <Link
                   key={project._id}
                   href={`/projeler/${project.slug.current}`}
@@ -285,7 +285,7 @@ export default async function HomePage() {
             </div>
 
             <div className="flex items-stretch gap-8 md:gap-10 overflow-x-auto pb-2">
-              {topReferences.map((reference) => (
+              {topReferences.map((reference: Reference) => (
                 <div
                   key={reference._id}
                   className="shrink-0 w-40 flex flex-col items-center"
