@@ -38,7 +38,7 @@ export default function AboutPage() {
               kalemlerde üretim ve montaj sorumluluğu üstleniyoruz.
             </p>
             <p className="text-slate-700 leading-relaxed">
-              Yukarı Sanayi Mahallesi Keresteciler Sitesi&apos;nde
+              Keresteciler Sitesi&apos;nde
               konumlandırdığımız imalathanemizde; projeye özel ölçülendirme,
               seri üretim ve sahada montaj süreçlerini tek elden
               yönetiyoruz. Böylece hem TOKİ projelerinde hem de özel konut ve
@@ -135,8 +135,8 @@ export default function AboutPage() {
               <div className="border-t border-slate-200 pt-4 mt-2 text-sm">
                 <h3 className="font-semibold text-slate-700 mb-1">Adres</h3>
                 <p className="text-slate-600 leading-relaxed">
-                  Yukarı Sanayi Mah. Keresteciler Sitesi<br />
-                  6. Sok. No: 8<br />
+                  Kurtuluş Mah. Keresteciler Sitesi<br />
+                  6. Sok. No: 6<br />
                   Yakutiye / ERZURUM
                 </p>
               </div>

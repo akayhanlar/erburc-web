@@ -39,8 +39,9 @@ export default function ContactPage() {
                 <div className="ml-5">
                   <h3 className="font-semibold text-slate-800 text-lg mb-1">Adres</h3>
                   <p className="text-slate-600 leading-relaxed">
+                    Kurtuluş Mah. <br />
                     Sanayi Keresteciler Sitesi,<br />
-                    6. Sk. No:8<br />
+                    6. Sokak No:6<br />
                     Yakutiye/ERZURUM
                   </p>
                 </div>
@@ -54,13 +55,21 @@ export default function ContactPage() {
                   </svg>
                 </div>
                 <div className="ml-5">
-                  <h3 className="font-semibold text-slate-800 text-lg mb-1">Telefon</h3>
-                  <a 
-                    href="tel:+904422490439" 
-                    className="text-amber-600 hover:text-amber-700 text-xl font-semibold transition-colors duration-200"
-                  >
-                    0 (442) 249 04 39
-                  </a>
+                  <h3 className="font-semibold text-slate-800 text-lg mb-2">Telefon</h3>
+                  <div className="flex flex-col gap-1">
+                    <a 
+                      href="tel:+904422490439" 
+                      className="text-amber-600 hover:text-amber-700 text-lg font-semibold transition-colors duration-200"
+                    >
+                      0 (442) 249 04 39
+                    </a>
+                    <a 
+                      href="tel:+905343816499" 
+                      className="text-amber-600 hover:text-amber-700 text-lg font-semibold transition-colors duration-200"
+                    >
+                      0 (534) 381 6499
+                    </a>
+                  </div>
                 </div>
               </div>
 
@@ -230,7 +239,7 @@ export default function ContactPage() {
               <svg className="w-16 h-16 text-slate-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
               </svg>
-              <p className="text-slate-500">Sanayi Keresteciler Sitesi, 6. Sk. No:8</p>
+              <p className="text-slate-500">Sanayi Keresteciler Sitesi, 6. Sk. No:6</p>
               <p className="text-slate-500">Yakutiye/ERZURUM</p>
               <a
                 href="https://maps.app.goo.gl/Qz8rpaZsvdxuoPSK6"

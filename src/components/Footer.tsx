@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-3 mb-6">
               <Image
-                src="/images/logo.jpg"
+                src="/images/logo.jpeg"
                 alt="Er Burç Yapı Logo"
                 width={50}
                 height={50}
@@ -106,7 +106,7 @@ export default function Footer() {
                 </svg>
                 <span className="text-slate-300 text-sm leading-relaxed">
                   Sanayi Keresteciler Sitesi,<br />
-                  6. Sk. No:8<br />
+                  6. Sk. No:6<br />
                   Yakutiye/ERZURUM
                 </span>
               </li>
