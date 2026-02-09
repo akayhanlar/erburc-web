@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   description: 'TOKİ projelerinde ahşap doğrama, kapı, dolap ve dekorasyon işlerinde 35 yılı aşkın tecrübemizle hizmetinizdeyiz. Erzurum merkezli, Türkiye genelinde kaliteli hizmet.',
   keywords: 'TOKİ, ahşap işleri, doğrama, kapı, dolap, dekorasyon, Erzurum, inşaat, taşeron',
   authors: [{ name: 'Er Burç Yapı ve Dekorasyon' }],
+  icons: {
+    icon: '/images/favicon.png?v=2',
+  },
   openGraph: {
     title: 'Er Burç Yapı ve Dekorasyon',
     description: 'TOKİ projelerinde ahşap işleri uzmanı',

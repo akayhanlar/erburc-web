@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-3 mb-6">
               <Image
-                src="/images/logo.jpeg"
+                src="/images/logo.png"
                 alt="Er Burç Yapı Logo"
                 width={50}
                 height={50}

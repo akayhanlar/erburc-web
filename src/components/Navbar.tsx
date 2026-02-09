@@ -22,7 +22,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image
-              src="/images/logo.jpeg"
+              src="/images/logo.png"
               alt="Er Burç Yapı ve Dekorasyon"
               width={260}
               height={80}
