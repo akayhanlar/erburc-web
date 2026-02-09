@@ -1,65 +1,369 @@
-import Image from "next/image";
+import Link from 'next/link';
+import { Hero } from '@/components';
+import { getProjects, getReferences, urlFor } from '@/lib/sanity';
+import { Project, Reference } from '@/types';
+import Image from 'next/image';
 
-export default function Home() {
+export const revalidate = 60; // Revalidate every 60 seconds
+
+export default async function HomePage() {
+  const [projects, references] = await Promise.all([
+    getProjects().catch(() => [] as Project[]),
+    getReferences().catch(() => [] as Reference[]),
+  ]);
+
+  const recentProjects = projects.slice(0, 6);
+  const topReferences = [...references].sort((a, b) => {
+    const aHasLogo = !!a.logo;
+    const bHasLogo = !!b.logo;
+    if (aHasLogo === bHasLogo) return 0;
+    return aHasLogo ? -1 : 1; // Logolu olanlar önce
+  });
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      <Hero />
+
+      {/* Core Values Section */}
+      <section className="bg-slate-900 text-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10">
+            {[
+              {
+                title: 'DENEYİM',
+                description: 'Yılların birikimiyle sahada test edilmiş çözümler',
+                icon: (
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.6}
+                      d="M3 21l7.5-9L13 14l4-5 4 6M3 10l4-6h10l4 6"
+                    />
+                  </svg>
+                ),
+              },
+              {
+                title: 'KALİTE',
+                description: 'Malzeme seçiminden montaja kadar kontrol edilen süreç',
+                icon: (
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.6}
+                      d="M9 12l2 2 4-4m-3-7l5 2 2 5-2 5-5 2-5-2-2-5 2-5 5-2z"
+                    />
+                  </svg>
+                ),
+              },
+              {
+                title: 'ESTETİK',
+                description: 'Mekânla uyumlu, çizgisi zamansız tasarımlar',
+                icon: (
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.6}
+                      d="M4 16l4.5-9L13 13l3-6 4 9M4 20h16"
+                    />
+                  </svg>
+                ),
+              },
+              {
+                title: 'GÜVEN',
+                description: 'Söz verilen zamanda, söz verilen işi teslim etme',
+                icon: (
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.6}
+                      d="M16 7a4 4 0 00-7.446-1.657A3 3 0 006 8v1H5a3 3 0 000 6h1.172a3 3 0 002.12.879h1.086l1.707 1.707a2 2 0 002.828 0l3.414-3.414A3 3 0 0019 11.172V10a3 3 0 00-3-3h0z"
+                    />
+                  </svg>
+                ),
+              },
+            ].map((item) => (
+              <div
+                key={item.title}
+                className="flex flex-col items-center text-center"
+              >
+                <div className="w-20 h-20 rounded-full border border-amber-500 bg-black/40 flex items-center justify-center mb-4 shadow-md">
+                  {item.icon}
+                </div>
+                <h3 className="text-sm md:text-base font-semibold tracking-[0.2em] text-amber-400 mb-1">
+                  {item.title}
+                </h3>
+                <p className="text-xs md:text-sm text-slate-300 max-w-[12rem]">
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
+              Hizmetlerimiz
+            </h2>
+            <p className="text-slate-600 max-w-2xl mx-auto">
+              TOKİ projeleri başta olmak üzere tüm inşaat projelerinde ahşap işleri konusunda kapsamlı hizmet sunuyoruz.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                title: 'Ahşap Doğrama',
+                description: 'Pencere ve kapı doğramaları, özel tasarım ahşap işleri',
+                icon: (
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                  </svg>
+                ),
+              },
+              {
+                title: 'İç Kapı İmalatı',
+                description: 'Amerikan panel kapı, laminat kapı, lake kapı üretimi',
+                icon: (
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7h8M8 11h8m-8 4h4m-7 6h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
+                ),
+              },
+              {
+                title: 'Mutfak & Dolap',
+                description: 'Mutfak dolapları, gardırop ve ankastre ünite imalatı',
+                icon: (
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                  </svg>
+                ),
+              },
+              {
+                title: 'Dekorasyon',
+                description: 'İç mekan dekorasyon, tavan kaplama, duvar panelleri',
+                icon: (
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                  </svg>
+                ),
+              },
+            ].map((service, index) => (
+              <div
+                key={index}
+                className="bg-slate-50 rounded-xl p-8 text-center hover:bg-amber-50 hover:shadow-lg transition-all duration-300 group"
+              >
+                <div className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center mx-auto mb-6 text-white group-hover:scale-110 transition-transform duration-300">
+                  {service.icon}
+                </div>
+                <h3 className="text-xl font-bold text-slate-800 mb-3">
+                  {service.title}
+                </h3>
+                <p className="text-slate-600 text-sm">
+                  {service.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Product & Application Areas */}
+      <section className="py-16 bg-slate-50">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mb-3">
+              Ürün ve Uygulama Alanlarımız
+            </h2>
+            <p className="text-slate-600 max-w-2xl mx-auto text-sm md:text-base">
+              Konut ve sosyal donatı projelerinde ahşap imalatı gerektiren tüm alanlarda üretim ve montaj yapıyoruz.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-3 gap-x-8 text-sm md:text-base text-slate-700">
+            <span>Kapı</span>
+            <span>Vestiyer</span>
+            <span>Mutfak</span>
+            <span>Yatak Odası</span>
+            <span>Televizyon Üniteleri</span>
+            <span>Gölgellik</span>
+            <span>Banyo</span>
+            <span>Lobi</span>
+            <span>Doğrama</span>
+            <span>Süpürgelik</span>
+            <span>Merdiven</span>
+            <span>Posta Kutusu</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Recent Projects Section */}
+      {recentProjects.length > 0 && (
+        <section className="py-20 bg-slate-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
+                  Son Projelerimiz
+                </h2>
+                <p className="text-slate-600 max-w-xl">
+                  Türkiye genelinde tamamladığımız ve devam eden projelerimizden bazıları
+                </p>
+              </div>
+              <Link
+                href="/projeler"
+                className="mt-6 md:mt-0 inline-flex items-center text-amber-600 font-semibold hover:text-amber-700 transition-colors duration-200"
+              >
+                Tüm Projeler
+                <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {recentProjects.map((project) => (
+                <Link
+                  key={project._id}
+                  href={`/projeler/${project.slug.current}`}
+                  className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                >
+                  <div className="relative h-56 overflow-hidden">
+                    {project.mainImage ? (
+                      <Image
+                        src={urlFor(project.mainImage).width(600).height(400).url()}
+                        alt={project.mainImage.alt || project.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <Image
+                        src="/images/sabit.jpeg"
+                        alt={`${project.title} proje görseli yakında eklenecek`}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    )}
+                    <div className={`absolute top-4 left-4 px-3 py-1.5 rounded-full text-xs font-semibold ${
+                      project.status === 'devam-eden' ? 'bg-blue-500 text-white' : 'bg-green-500 text-white'
+                    }`}>
+                      {project.status === 'devam-eden' ? 'Devam Ediyor' : 'Tamamlandı'}
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-lg font-bold text-slate-800 group-hover:text-amber-600 transition-colors duration-200">
+                      {project.title}
+                    </h3>
+                    {project.location && (
+                      <p className="text-slate-500 text-sm mt-1">{project.location}</p>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* References Section */}
+      {topReferences.length > 0 && (
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
+                Referanslarımız
+              </h2>
+              <p className="text-slate-600">
+                Birlikte çalıştığımız değerli iş ortaklarımız
+              </p>
+            </div>
+
+            <div className="flex items-stretch gap-8 md:gap-10 overflow-x-auto pb-2">
+              {topReferences.map((reference) => (
+                <div
+                  key={reference._id}
+                  className="shrink-0 w-40 flex flex-col items-center"
+                >
+                  {reference.logo ? (
+                    <div className="relative w-full h-20 mb-2 grayscale hover:grayscale-0 transition-all duration-300">
+                      <Image
+                        src={urlFor(reference.logo).width(300).fit('max').url()}
+                        alt={reference.logo.alt || reference.title}
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-full h-20 mb-2 bg-slate-50 rounded-lg border border-dashed border-slate-200 flex flex-col items-center justify-center px-3 text-center">
+                      <svg className="w-6 h-6 text-amber-500 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="M16 7a4 4 0 00-7.446-1.657A3 3 0 006 8v1H5a3 3 0 000 6h1.172a3 3 0 002.12.879h1.086l1.707 1.707a2 2 0 002.828 0l3.414-3.414A3 3 0 0019 11.172V10a3 3 0 00-3-3h0z"
+                        />
+                      </svg>
+                      <span className="text-slate-600 text-[11px] leading-snug">
+                        {reference.title}
+                      </span>
+                    </div>
+                  )}
+                  <p className="text-slate-700 text-xs text-center mt-1">
+                    {reference.title}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center mt-10">
+              <Link
+                href="/referanslar"
+                className="inline-flex items-center text-amber-600 font-semibold hover:text-amber-700 transition-colors duration-200"
+              >
+                Tüm Referanslar
+                <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-slate-800 to-slate-900">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+            Projeniz İçin Teklif Alın
+          </h2>
+          <p className="text-slate-300 text-lg mb-10 max-w-2xl mx-auto">
+            TOKİ projeleri veya özel projeleriniz için uzman ekibimizden ücretsiz keşif ve teklif alın.
           </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              href="/iletisim"
+              className="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-white px-8 py-4 rounded-md font-semibold text-lg transition-all duration-200 shadow-lg"
+            >
+              İletişime Geçin
+            </Link>
+            <a
+              href="tel:+904422490439"
+              className="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white border border-white/30 px-8 py-4 rounded-md font-semibold text-lg transition-all duration-200 flex items-center justify-center"
+            >
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              0 (442) 249 04 39
+            </a>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+    </>
   );
 }
