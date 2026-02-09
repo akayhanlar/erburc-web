@@ -58,16 +58,10 @@ export default function ContactPage() {
                   <h3 className="font-semibold text-slate-800 text-lg mb-2">Telefon</h3>
                   <div className="flex flex-col gap-1">
                     <a 
-                      href="tel:+904422490439" 
-                      className="text-amber-600 hover:text-amber-700 text-lg font-semibold transition-colors duration-200"
-                    >
-                      0 (442) 249 04 39
-                    </a>
-                    <a 
                       href="tel:+905343816499" 
                       className="text-amber-600 hover:text-amber-700 text-lg font-semibold transition-colors duration-200"
                     >
-                      0 (534) 381 6499
+                      0 (534) 381 64 99
                     </a>
                   </div>
                 </div>
@@ -231,28 +225,34 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {/* Map Placeholder */}
+        {/* Harita */}
         <div className="mt-16">
           <h2 className="text-2xl font-bold text-slate-800 mb-8 text-center">Konumumuz</h2>
-          <div className="bg-slate-200 rounded-xl h-96 flex items-center justify-center">
-            <div className="text-center">
-              <svg className="w-16 h-16 text-slate-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+          <div className="rounded-xl overflow-hidden shadow-lg h-[400px] md:h-[450px] bg-slate-200">
+            <iframe
+              title="Er Burç Yapı - Konum"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3059.6355113099876!2d41.28261227644057!3d39.92717228528946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406ef504b0f09ad7%3A0x528b8784d6416a74!2sEr%20Bur%C3%A7%20Yap%C4%B1%20Dekorasyon%20ltd.%C5%9Fti!5e0!3m2!1str!2str!4v1770680793899!5m2!1str!2str"
+              className="w-full h-full border-0"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+          <p className="text-slate-600 text-center mt-4">
+            Sanayi Keresteciler Sitesi, 6. Sk. No:6 · Yakutiye / ERZURUM
+          </p>
+          <div className="text-center mt-3">
+            <a
+              href="https://maps.app.goo.gl/Qz8rpaZsvdxuoPSK6"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center text-amber-600 hover:text-amber-700 font-medium transition-colors duration-200"
+            >
+              Google Maps&apos;te Aç
+              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
-              <p className="text-slate-500">Sanayi Keresteciler Sitesi, 6. Sk. No:6</p>
-              <p className="text-slate-500">Yakutiye/ERZURUM</p>
-              <a
-                href="https://maps.app.goo.gl/Qz8rpaZsvdxuoPSK6"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center text-amber-600 hover:text-amber-700 font-medium mt-4 transition-colors duration-200"
-              >
-                Google Maps&apos;te Aç
-                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </a>
-            </div>
+            </a>
           </div>
         </div>
       </div>
