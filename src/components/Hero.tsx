@@ -13,21 +13,16 @@ export default function Hero() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
         <div className="text-center">
           {/* Badge */}
-          <div className="inline-flex items-center px-4 py-2 bg-amber-500/20 rounded-full mb-6">
-            <span className="text-amber-400 text-sm font-medium">
-              TOKİ Onaylı Taşeron Firma
-            </span>
-          </div>
 
           {/* Main Headline */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-            Toplu Konut ve Ahşap İşlerinde
+            Toplu Konut ve Taahhüt İşlerinde
             <span className="block text-amber-500 mt-2">Uzman Çözüm Ortağı</span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">
-            35 yılı aşkın tecrübemizle TOKİ projelerinde ahşap doğrama, kapı, 
+            35 yılı aşkın tecrübemizle tüm ahşap doğrama, kapı, 
             dolap ve dekorasyon işlerinde güvenilir çözüm ortağınız.
           </p>
 
