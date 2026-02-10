@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { getProjects } from '@/lib/sanity';
+import type { Project } from '@/types';
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://erburcyapi.com';
 
@@ -15,7 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let projectPages: MetadataRoute.Sitemap = [];
   try {
     const projects = await getProjects();
-    projectPages = projects.map((p) => ({
+    projectPages = projects.map((p: Project) => ({
       url: `${BASE_URL}/projeler/${p.slug?.current || p._id}`,
       lastModified: new Date(p._createdAt),
       changeFrequency: 'monthly' as const,
