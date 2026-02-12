@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-3 mb-6">
               <Image
-                src="/images/logo.png"
+                src="/images/logo_footer.png"
                 alt="Er Burç Yapı Logo"
                 width={50}
                 height={50}
@@ -23,7 +23,7 @@ export default function Footer() {
             </div>
             <p className="text-slate-300 leading-relaxed mb-6 max-w-md">
               TOKİ projelerinde ahşap doğrama, kapı, dolap ve dekorasyon işlerinde 
-              35 yılı aşkın tecrübemizle hizmetinizdeyiz. Kalite ve güvenilirlik 
+              55 yılı aşkın tecrübemizle hizmetinizdeyiz. Kalite ve güvenilirlik 
               bizim için vazgeçilmezdir.
             </p>
             <div className="flex space-x-4">
